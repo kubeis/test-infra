@@ -15,7 +15,7 @@ metadata:
 data:
   plugins.yaml: |
     plugins:
-      << your_github_org >>:
+      https://github.com/kubeis:
         plugins:
         - approve
         - assign
@@ -38,7 +38,7 @@ metadata:
   namespace: prow
   name: github-token
 stringData:
-  token: <<insert-token-here>>
+  token: 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
 ---
 apiVersion: v1
 kind: Secret
@@ -47,7 +47,7 @@ metadata:
   name: hmac-token
 stringData:
   # Generate via `openssl rand -hex 20`. This is the secret used in the GitHub webhook configuration
-  hmac: << insert-hmac-token-here >>
+  hmac: 6d0b5900760b6fb985d6e46b15cbee3d3228c88a
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -86,11 +86,11 @@ data:
 
     plank:
       job_url_prefix_config:
-        "*": https://prow.<< your-domain.com >>/view/
+        "*": https://prow.crunchydevops.com/view/
       report_templates:
         '*': >-
-            [Full PR test history](https://prow.<< your-domain.com >>/pr-history?org={{.Spec.Refs.Org}}&repo={{.Spec.Refs.Repo}}&pr={{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}).
-            [Your PR dashboard](https://prow.<< your-domain.com >>/pr?query=is:pr+state:open+author:{{with
+            [Full PR test history](https://prow.crunchydevos.com/pr-history?org={{.Spec.Refs.Org}}&repo={{.Spec.Refs.Repo}}&pr={{with index .Spec.Refs.Pulls 0}}{{.Number}}{{end}}).
+            [Your PR dashboard](https://prow.crunchydevops.com/pr?query=is:pr+state:open+author:{{with
             index .Spec.Refs.Pulls 0}}{{.Author}}{{end}}).
       default_decoration_configs:
         "*":
@@ -115,7 +115,7 @@ data:
         - do-not-merge/work-in-progress
         - do-not-merge/invalid-owners-file
         orgs:
-        - << your_github_org >>
+        - https://github.com/kubeis
 
     decorate_all_jobs: true
     periodics:
@@ -561,7 +561,7 @@ spec:
       port:
         number: 80
   rules:
-  - host: prow.<< your-domain.com >>
+  - host: prow.crunchydevops.com
     http:
       paths:
       - path: /
